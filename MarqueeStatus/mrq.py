@@ -31,7 +31,7 @@ class MarqueeStatus(plugin_super_class.PluginSuperClass):
 
     def __init__(self, *args):
         super(MarqueeStatus, self).__init__('MarqueeStatus', 'mrq', *args)
-        self._thread = threading.Thread(target=self.change_status)
+        self._thread = None
         self._exec = None
         self.active = False
 
@@ -45,10 +45,12 @@ class MarqueeStatus(plugin_super_class.PluginSuperClass):
 
     def start(self):
         self._exec = True
+        self._thread = threading.Thread(target=self.change_status)
         self._thread.start()
 
     def set_status_message(self):
-        self._profile.status_message = self._profile.status_message[1:] + self._profile.status_message[0]
+        message = self._profile.status_message
+        self._profile.set_status_message(message[1:] + message[0])
 
     def init_status(self):
         self._profile.status_message = self._profile.status_message.strip() + '   '
