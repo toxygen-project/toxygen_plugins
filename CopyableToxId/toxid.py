@@ -9,6 +9,7 @@ class CopyableToxId(plugin_super_class.PluginSuperClass):
         super(CopyableToxId, self).__init__('CopyableToxId', 'toxid', *args)
         self._data = json.loads(self.load_settings())
         self._copy = False
+        self._curr = -1
         self._timer = QtCore.QTimer()
         self._timer.timeout.connect(lambda: self.timer())
         self.load_translator()
@@ -43,7 +44,7 @@ class CopyableToxId(plugin_super_class.PluginSuperClass):
 
     def lossless_packet(self, data, friend_number):
         if len(data):
-            self._data['id'] = filter(lambda x: not x.startswith(data[:64]), self._data['id'])
+            self._data['id'] = list(filter(lambda x: not x.startswith(data[:64]), self._data['id']))
             self._data['id'].append(data)
             if self._copy:
                 self._timer.stop()
@@ -64,7 +65,17 @@ class CopyableToxId(plugin_super_class.PluginSuperClass):
 
     def timer(self):
         self._copy = False
-        self.error()
+        if self._curr + 1:
+            public_key = self._tox.friend_get_public_key(self._curr)
+            self._curr = -1
+            arr = list(filter(lambda x: x.startswith(public_key), self._data['id']))
+            if len(arr):
+                clipboard = QtGui.QApplication.clipboard()
+                clipboard.setText(arr[0])
+            else:
+                self.error()
+        else:
+            self.error()
         self._timer.stop()
 
     def friend_connected(self, friend_number):
@@ -101,12 +112,13 @@ help: show this help""", None, QtGui.QApplication.UnicodeUTF8)
         else:
             return
         public_key = self._tox.friend_get_public_key(num)
-        arr = filter(lambda x: x.startswith(public_key), self._data['id'])
-        if len(arr):
+        arr = list(filter(lambda x: x.startswith(public_key), self._data['id']))
+        if self._profile.get_friend_by_number(num).status is None and len(arr):
             clipboard = QtGui.QApplication.clipboard()
             clipboard.setText(arr[0])
         elif self._profile.get_friend_by_number(num).status is not None:
             self._copy = True
+            self._curr = num
             self.send_lossless('', num)
             self._timer.start(2000)
         else:

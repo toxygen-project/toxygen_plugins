@@ -50,10 +50,10 @@ class MarqueeStatus(plugin_super_class.PluginSuperClass):
 
     def set_status_message(self):
         message = self._profile.status_message
-        self._profile.set_status_message(message[1:] + message[0])
+        self._profile.set_status_message(bytes(message[1:] + message[0], 'utf-8'))
 
     def init_status(self):
-        self._profile.status_message = self._profile.status_message.strip() + '   '
+        self._profile.status_message = bytes(self._profile.status_message.strip() + '   ', 'utf-8')
 
     def change_status(self):
         self.active = True
