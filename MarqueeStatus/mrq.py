@@ -64,5 +64,5 @@ class MarqueeStatus(plugin_super_class.PluginSuperClass):
             time.sleep(1)
             if self._profile.status is not None:
                 invoke_in_main_thread(self.set_status_message)
-        invoke_in_main_thread(self._profile.set_status_message, tmp)
+        invoke_in_main_thread(self._profile.set_status_message, bytes(tmp, 'utf-8'))
         self.active = False
