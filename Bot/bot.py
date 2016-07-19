@@ -31,11 +31,21 @@ class Bot(plugin_super_class.PluginSuperClass):
     def __init__(self, *args):
         super(Bot, self).__init__('Bot', 'bot', *args)
         self._callback = None
+        self._mode = 0
+        self._message = "I'm away, will back soon"
         self._timer = QtCore.QTimer()
         self._timer.timeout.connect(self.initialize)
 
     def start(self):
         self._timer.start(10000)
+
+    def command(self, command):
+        if command.startswith('mode '):
+            self._mode = int(command.split(' ')[-1])
+        elif command.startswith('message '):
+            self._message = command[8:]
+        else:
+            super().command(command)
 
     def initialize(self):
         self._timer.stop()
@@ -55,6 +65,8 @@ class Bot(plugin_super_class.PluginSuperClass):
         self.stop()
 
     def answer(self, friend_number, message):
+        if not self._mode:
+            message = self._message
         invoke_in_main_thread(self._profile.send_message, message, friend_number)
 
 
