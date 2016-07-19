@@ -2,11 +2,14 @@
 
 Repo with plugins for [Toxygen](https://github.com/xveduk/toxygen/)
 
-For more info visit [plugins.md](https://github.com/xveduk/toxygen/blob/master/docs/plugins.md)
+For more info visit [plugins.md](https://github.com/xveduk/toxygen/blob/master/docs/plugins.md) and [plugin_api.md](https://github.com/xveduk/toxygen/blob/master/docs/plugin-api.md)
 
-#Plugins list:
+# Plugins list:
 
 - ToxId - share your Tox ID and copy friend's Tox ID easily.
 - MarqueeStatus - create ticker from your status message.
+- BirthDay - get notifications on your friends' birthdays
+- Bot - bot which can communicate with your friends when you are away
+- SearchPlugin - select text in message and find it in search engine
 
 
