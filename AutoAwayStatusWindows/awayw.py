@@ -49,6 +49,7 @@ class AutoAwayStatusWindows(plugin_super_class.PluginSuperClass):
         self._exec = None
         self._active = False
         self._time = json.loads(self.load_settings())['time']
+        self._prev_status = 0
 
     def close(self):
         self.stop()
@@ -66,8 +67,10 @@ class AutoAwayStatusWindows(plugin_super_class.PluginSuperClass):
     def save(self):
         self.save_settings('{"time": ' + str(self._time) + '}')
 
-    def change_status(self):
-        invoke_in_main_thread(self._profile.set_status, 1)
+    def change_status(self, status=1):
+        if self._profile.status != 1:
+            self._prev_status = self._profile.status
+        invoke_in_main_thread(self._profile.set_status, status)
 
     def get_window(self):
         inst = self
@@ -103,7 +106,10 @@ class AutoAwayStatusWindows(plugin_super_class.PluginSuperClass):
     def loop(self):
         self._active = True
         while self._exec:
-            time.sleep(30)
+            time.sleep(5)
             d = get_idle_duration()
-            if self._time and d > 60 * self._time:
-                self.change_status()
+            if self._time:
+                if d > 60 * self._time:
+                    self.change_status()
+                elif self._profile.status == 1:
+                    self.change_status(self._prev_status)

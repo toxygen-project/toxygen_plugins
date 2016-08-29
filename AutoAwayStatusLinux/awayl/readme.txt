@@ -1,1 +1,1 @@
-Required: xprintidle (sudo apt-get install )
+Required package: xprintidle (sudo apt-get install xprintidle)

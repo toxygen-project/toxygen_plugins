@@ -8,8 +8,10 @@ For more info visit [plugins.md](https://github.com/xveduk/toxygen/blob/master/d
 
 - ToxId - share your Tox ID and copy friend's Tox ID easily.
 - MarqueeStatus - create ticker from your status message.
-- BirthDay - get notifications on your friends' birthdays
-- Bot - bot which can communicate with your friends when you are away
-- SearchPlugin - select text in message and find it in search engine
+- BirthDay - get notifications on your friends' birthdays.
+- Bot - bot which can communicate with your friends when you are away.
+- SearchPlugin - select text in message and find it in search engine.
+- AutoAwayStatusLinux - sets "Away" status when user is inactive (Linux only).
+- AutoAwayStatusWindows - sets "Away" status when user is inactive (Windows only).
 
 
