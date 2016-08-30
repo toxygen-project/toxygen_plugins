@@ -68,9 +68,10 @@ class AutoAwayStatusWindows(plugin_super_class.PluginSuperClass):
         self.save_settings('{"time": ' + str(self._time) + '}')
 
     def change_status(self, status=1):
-        if self._profile.status != 1:
+        if self._profile.status in (0, 2):
             self._prev_status = self._profile.status
-        invoke_in_main_thread(self._profile.set_status, status)
+        if status is not None:
+            invoke_in_main_thread(self._profile.set_status, status)
 
     def get_window(self):
         inst = self
