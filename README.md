@@ -1,8 +1,8 @@
 # Plugins
 
-Repo with plugins for [Toxygen](https://github.com/xveduk/toxygen/)
+Repo with plugins for [Toxygen](https://github.com/toxygen-project/toxygen/)
 
-For more info visit [plugins.md](https://github.com/xveduk/toxygen/blob/master/docs/plugins.md) and [plugin_api.md](https://github.com/xveduk/toxygen/blob/master/docs/plugin-api.md)
+For more info visit [plugins.md](https://github.com/toxygen-project/toxygen/blob/master/docs/plugins.md) and [plugin_api.md](https://github.com/toxygen-project/toxygen/blob/master/docs/plugin-api.md)
 
 # Plugins list:
 
@@ -13,5 +13,6 @@ For more info visit [plugins.md](https://github.com/xveduk/toxygen/blob/master/d
 - SearchPlugin - select text in message and find it in search engine.
 - AutoAwayStatusLinux - sets "Away" status when user is inactive (Linux only).
 - AutoAwayStatusWindows - sets "Away" status when user is inactive (Windows only).
+- Chess - play chess with your friends using Tox.
 
 
