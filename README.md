@@ -14,5 +14,6 @@ For more info visit [plugins.md](https://github.com/toxygen-project/toxygen/blob
 - AutoAwayStatusLinux - sets "Away" status when user is inactive (Linux only).
 - AutoAwayStatusWindows - sets "Away" status when user is inactive (Windows only).
 - Chess - play chess with your friends using Tox.
-
+- Garland - changes your status like it's garland.
+- AutoAnswer - calls auto answering.
 
