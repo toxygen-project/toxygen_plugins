@@ -17,4 +17,4 @@ For more info visit [plugins.md](https://github.com/toxygen-project/toxygen/blob
 - Garland - changes your status like it's garland.
 - AutoAnswer - calls auto answering.
 - uToxInlineSending - send inlines with the same name as uTox does.
-
+- AvatarEncryption - encrypt all avatars using profile password
