@@ -1,7 +1,7 @@
 import plugin_super_class
 import threading
 import time
-from PySide import QtCore
+from PyQt5 import QtCore
 
 
 class InvokeEvent(QtCore.QEvent):
@@ -34,6 +34,7 @@ class MarqueeStatus(plugin_super_class.PluginSuperClass):
         self._thread = None
         self._exec = None
         self.active = False
+        self.left = True
 
     def close(self):
         self.stop()
@@ -48,9 +49,18 @@ class MarqueeStatus(plugin_super_class.PluginSuperClass):
         self._thread = threading.Thread(target=self.change_status)
         self._thread.start()
 
+    def command(self, command):
+        if command == 'rev':
+            self.left = not self.left
+        else:
+            super(MarqueeStatus, self).command(command)
+
     def set_status_message(self):
         message = self._profile.status_message
-        self._profile.set_status_message(bytes(message[1:] + message[0], 'utf-8'))
+        if self.left:
+            self._profile.set_status_message(bytes(message[1:] + message[0], 'utf-8'))
+        else:
+            self._profile.set_status_message(bytes(message[-1] + message[:-1], 'utf-8'))
 
     def init_status(self):
         self._profile.status_message = bytes(self._profile.status_message.strip() + '   ', 'utf-8')

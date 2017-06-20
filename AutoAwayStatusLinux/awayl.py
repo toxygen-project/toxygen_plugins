@@ -1,7 +1,7 @@
 import plugin_super_class
 import threading
 import time
-from PySide import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets
 from subprocess import check_output
 import json
 
@@ -64,21 +64,21 @@ class AutoAwayStatusLinux(plugin_super_class.PluginSuperClass):
     def get_window(self):
         inst = self
 
-        class Window(QtGui.QWidget):
+        class Window(QtWidgets.QWidget):
             def __init__(self):
                 super(Window, self).__init__()
                 self.setGeometry(QtCore.QRect(450, 300, 350, 100))
-                self.label = QtGui.QLabel(self)
+                self.label = QtWidgets.QLabel(self)
                 self.label.setGeometry(QtCore.QRect(20, 0, 310, 35))
-                self.label.setText(QtGui.QApplication.translate("AutoAwayStatusLinux", "Auto away time in minutes\n(0 - to disable)", None, QtGui.QApplication.UnicodeUTF8))
-                self.time = QtGui.QLineEdit(self)
+                self.label.setText(QtWidgets.QApplication.translate("AutoAwayStatusLinux", "Auto away time in minutes\n(0 - to disable)"))
+                self.time = QtWidgets.QLineEdit(self)
                 self.time.setGeometry(QtCore.QRect(20, 40, 310, 25))
                 self.time.setText(str(inst._time))
                 self.setWindowTitle("AutoAwayStatusLinux")
-                self.ok = QtGui.QPushButton(self)
+                self.ok = QtWidgets.QPushButton(self)
                 self.ok.setGeometry(QtCore.QRect(20, 70, 310, 25))
                 self.ok.setText(
-                    QtGui.QApplication.translate("AutoAwayStatusLinux", "Save", None, QtGui.QApplication.UnicodeUTF8))
+                    QtWidgets.QApplication.translate("AutoAwayStatusLinux", "Save"))
                 self.ok.clicked.connect(self.update)
 
             def update(self):

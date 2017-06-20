@@ -1,5 +1,5 @@
 import plugin_super_class
-from PySide import QtCore
+from PyQt5 import QtCore
 import time
 
 

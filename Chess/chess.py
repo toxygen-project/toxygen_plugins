@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import collections
-import random
 import re
-import datetime
-import itertools
 import math
 import plugin_super_class
 
-from PySide.QtCore import *
-from PySide.QtGui import *
-from PySide.QtSvg import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtSvg import *
 
 
 START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
@@ -1682,5 +1680,5 @@ class Chess(plugin_super_class.PluginSuperClass):
 
     def get_menu(self, menu, num):
         act = QAction(QApplication.translate("Chess", "Start chess game", None, QApplication.UnicodeUTF8), menu)
-        act.connect(act, SIGNAL("triggered()"), lambda: self.start_game(num))
+        act.triggered.connect(lambda: self.start_game(num))
         return [act]

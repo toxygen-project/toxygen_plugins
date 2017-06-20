@@ -1,7 +1,7 @@
 import plugin_super_class
 import threading
 import time
-from PySide import QtCore
+from PyQt5 import QtCore
 
 
 class InvokeEvent(QtCore.QEvent):
@@ -49,12 +49,15 @@ class Garland(plugin_super_class.PluginSuperClass):
 
     def command(self, command):
         if command.startswith('time'):
-            self._time = max(int(command.split(' ')[1]), 0) / 1000
+            self._time = max(int(command.split(' ')[1]), 300) / 1000
         else:
             super().command(command)
+
+    def update(self):
+        self._profile.set_status((self._profile.status + 1) % 3)
 
     def change_status(self):
         time.sleep(5)
         while self._exec:
-            invoke_in_main_thread(self._profile.change_status)
+            invoke_in_main_thread(self.update)
             time.sleep(self._time)

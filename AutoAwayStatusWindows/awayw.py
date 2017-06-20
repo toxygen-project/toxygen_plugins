@@ -1,7 +1,7 @@
 import plugin_super_class
 import threading
 import time
-from PySide import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets
 from ctypes import Structure, windll, c_uint, sizeof, byref
 import json
 
@@ -68,29 +68,28 @@ class AutoAwayStatusWindows(plugin_super_class.PluginSuperClass):
         self.save_settings('{"time": ' + str(self._time) + '}')
 
     def change_status(self, status=1):
-        if self._profile.status in (0, 2):
+        if self._profile.status != 1:
             self._prev_status = self._profile.status
-        if status is not None:
-            invoke_in_main_thread(self._profile.set_status, status)
+        invoke_in_main_thread(self._profile.set_status, status)
 
     def get_window(self):
         inst = self
 
-        class Window(QtGui.QWidget):
+        class Window(QtWidgets.QWidget):
             def __init__(self):
                 super(Window, self).__init__()
                 self.setGeometry(QtCore.QRect(450, 300, 350, 100))
-                self.label = QtGui.QLabel(self)
+                self.label = QtWidgets.QLabel(self)
                 self.label.setGeometry(QtCore.QRect(20, 0, 310, 35))
-                self.label.setText(QtGui.QApplication.translate("AutoAwayStatusWindows", "Auto away time in minutes\n(0 - to disable)", None, QtGui.QApplication.UnicodeUTF8))
-                self.time = QtGui.QLineEdit(self)
+                self.label.setText(QtWidgets.QApplication.translate("AutoAwayStatusWindows", "Auto away time in minutes\n(0 - to disable)"))
+                self.time = QtWidgets.QLineEdit(self)
                 self.time.setGeometry(QtCore.QRect(20, 40, 310, 25))
                 self.time.setText(str(inst._time))
                 self.setWindowTitle("AutoAwayStatusWindows")
-                self.ok = QtGui.QPushButton(self)
+                self.ok = QtWidgets.QPushButton(self)
                 self.ok.setGeometry(QtCore.QRect(20, 70, 310, 25))
                 self.ok.setText(
-                    QtGui.QApplication.translate("AutoAwayStatusWindows", "Save", None, QtGui.QApplication.UnicodeUTF8))
+                    QtWidgets.QApplication.translate("AutoAwayStatusWindows", "Save"))
                 self.ok.clicked.connect(self.update)
 
             def update(self):

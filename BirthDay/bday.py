@@ -1,5 +1,5 @@
 import plugin_super_class
-from PySide import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 import json
 import importlib
 
@@ -22,9 +22,9 @@ class BirthDay(plugin_super_class.PluginSuperClass):
                 if int(arr[0]) == now.day and int(arr[1]) == now.month:
                     today[key] = now.year - int(arr[2])
         if len(today):
-            msgbox = QtGui.QMessageBox()
-            title = QtGui.QApplication.translate('BirthDay', "Birthday!", None,
-                                                 QtGui.QApplication.UnicodeUTF8)
+            msgbox = QtWidgets.QMessageBox()
+            title = QtWidgets.QApplication.translate('BirthDay', "Birthday!", None,
+                                                 QtWidgets.QApplication.UnicodeUTF8)
             msgbox.setWindowTitle(title)
             text = ', '.join(self._profile.get_friend_by_number(self._tox.friend_by_public_key(x)).name + ' ({})'.format(today[x]) for x in today)
             msgbox.setText('Birthdays: ' + text)
@@ -34,23 +34,23 @@ class BirthDay(plugin_super_class.PluginSuperClass):
         inst = self
         x = self._profile.tox_id[:64]
 
-        class Window(QtGui.QWidget):
+        class Window(QtWidgets.QWidget):
 
             def __init__(self):
                 super(Window, self).__init__()
                 self.setGeometry(QtCore.QRect(450, 300, 350, 150))
-                self.send = QtGui.QCheckBox(self)
+                self.send = QtWidgets.QCheckBox(self)
                 self.send.setGeometry(QtCore.QRect(20, 10, 310, 25))
-                self.send.setText(QtGui.QApplication.translate('BirthDay', "Send my birthday date to contacts", None, QtGui.QApplication.UnicodeUTF8))
-                self.setWindowTitle(QtGui.QApplication.translate('BirthDay', "Birthday", None, QtGui.QApplication.UnicodeUTF8))
+                self.send.setText(QtWidgets.QApplication.translate('BirthDay', "Send my birthday date to contacts"))
+                self.setWindowTitle(QtWidgets.QApplication.translate('BirthDay', "Birthday"))
                 self.send.clicked.connect(self.update)
                 self.send.setChecked(inst._data['send_date'])
-                self.date = QtGui.QLineEdit(self)
+                self.date = QtWidgets.QLineEdit(self)
                 self.date.setGeometry(QtCore.QRect(20, 50, 310, 25))
-                self.date.setPlaceholderText(QtGui.QApplication.translate('BirthDay', "Date in format dd.mm.yyyy", None, QtGui.QApplication.UnicodeUTF8))
-                self.set_date = QtGui.QPushButton(self)
+                self.date.setPlaceholderText(QtWidgets.QApplication.translate('BirthDay', "Date in format dd.mm.yyyy"))
+                self.set_date = QtWidgets.QPushButton(self)
                 self.set_date.setGeometry(QtCore.QRect(20, 90, 310, 25))
-                self.set_date.setText(QtGui.QApplication.translate('BirthDay', "Save date", None, QtGui.QApplication.UnicodeUTF8))
+                self.set_date.setText(QtWidgets.QApplication.translate('BirthDay', "Save date"))
                 self.set_date.clicked.connect(self.save_curr_date)
                 self.date.setText(inst._data[x] if x in inst._data else '')
 
