@@ -61,3 +61,4 @@ class Garland(plugin_super_class.PluginSuperClass):
         while self._exec:
             invoke_in_main_thread(self.update)
             time.sleep(self._time)
+

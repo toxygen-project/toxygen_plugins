@@ -69,4 +69,3 @@ class Bot(plugin_super_class.PluginSuperClass):
             message = self._message
         invoke_in_main_thread(self._profile.send_message, message, friend_number)
 
-

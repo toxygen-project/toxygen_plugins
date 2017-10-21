@@ -1618,7 +1618,7 @@ class Chess(plugin_super_class.PluginSuperClass):
         self.is_my_move = False
 
     def get_description(self):
-        return QApplication.translate("Chess", 'Plugin which allows you to play chess with your friends.', None, QApplication.UnicodeUTF8)
+        return QApplication.translate("Chess", 'Plugin which allows you to play chess with your friends.')
 
     def lossless_packet(self, data, friend_number):
         if data == 'new':
@@ -1679,6 +1679,6 @@ class Chess(plugin_super_class.PluginSuperClass):
         QTimer.singleShot(1000, self.resend_move)
 
     def get_menu(self, menu, num):
-        act = QAction(QApplication.translate("Chess", "Start chess game", None, QApplication.UnicodeUTF8), menu)
+        act = QAction(QApplication.translate("Chess", "Start chess game"), menu)
         act.triggered.connect(lambda: self.start_game(num))
         return [act]

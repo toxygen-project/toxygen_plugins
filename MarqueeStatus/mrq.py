@@ -76,3 +76,4 @@ class MarqueeStatus(plugin_super_class.PluginSuperClass):
                 invoke_in_main_thread(self.set_status_message)
         invoke_in_main_thread(self._profile.set_status_message, bytes(tmp, 'utf-8'))
         self.active = False
+

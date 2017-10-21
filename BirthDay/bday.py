@@ -23,8 +23,7 @@ class BirthDay(plugin_super_class.PluginSuperClass):
                     today[key] = now.year - int(arr[2])
         if len(today):
             msgbox = QtWidgets.QMessageBox()
-            title = QtWidgets.QApplication.translate('BirthDay', "Birthday!", None,
-                                                 QtWidgets.QApplication.UnicodeUTF8)
+            title = QtWidgets.QApplication.translate('BirthDay', "Birthday!")
             msgbox.setWindowTitle(title)
             text = ', '.join(self._profile.get_friend_by_number(self._tox.friend_by_public_key(x)).name + ' ({})'.format(today[x]) for x in today)
             msgbox.setText('Birthdays: ' + text)
@@ -84,3 +83,4 @@ class BirthDay(plugin_super_class.PluginSuperClass):
         timer.stop()
         if self._profile.get_friend_by_number(friend_number).tox_id not in self._data:
             self.send_lossless('', friend_number)
+

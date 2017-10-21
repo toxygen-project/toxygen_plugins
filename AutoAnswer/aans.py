@@ -1,5 +1,5 @@
 import plugin_super_class
-from PySide import QtGui, QtCore
+from PyQt5 import QtGui, QtWidgets
 import json
 
 
@@ -11,7 +11,7 @@ class AutoAnswer(plugin_super_class.PluginSuperClass):
         self._tmp = None
 
     def get_description(self):
-        return QtGui.QApplication.translate("aans", 'Plugin which allows you to auto answer on calls.', None, QtGui.QApplication.UnicodeUTF8)
+        return QtWidgets.QApplication.translate("aans", 'Plugin which allows you to auto answer on calls.')
 
     def start(self):
         self._tmp = self._profile.incoming_call
@@ -33,8 +33,8 @@ class AutoAnswer(plugin_super_class.PluginSuperClass):
             text = 'Disallow auto answer'
         else:
             text = 'Allow auto answer'
-        act = QtGui.QAction(QtGui.QApplication.translate("aans", text, None, QtGui.QApplication.UnicodeUTF8), menu)
-        act.connect(act, QtCore.SIGNAL("triggered()"), lambda: self.toggle(friend.tox_id))
+        act = QtWidgets.QAction(QtWidgets.QApplication.translate("aans", text), menu)
+        act.triggered.connect(lambda: self.toggle(friend.tox_id))
         return [act]
 
     def toggle(self, tox_id):
@@ -43,4 +43,3 @@ class AutoAnswer(plugin_super_class.PluginSuperClass):
         else:
             self._data['id'].append(tox_id)
         self.save_settings(json.dumps(self._data))
-
